@@ -1,0 +1,28 @@
+{
+  "name": "PDFOrchestrator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "<alyssoncolombo@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/wkhtmltopdf": "^0.3.9",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.20",
+    "typescript": "^5.7.2",
+    "uuid": "^11.0.3",
+    "wkhtmltopdf": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "@types/uuid": "^10.0.0",
+    "ts-node-dev": "^2.0.0"
+  },
+  "scripts": {
+    "dev": "ts-node-dev src/app.ts"
+  }
+}
