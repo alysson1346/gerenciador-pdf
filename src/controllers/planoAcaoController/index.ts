@@ -1,31 +1,31 @@
-import { generatePdf } from "../../services/constructorPdf";
-import { Request, Response } from "express";
-import { dynamicColumn } from "../../components/dynamicColumns";
-import { generateDynamicHTML } from "../../components/generateDynamicHTML";
-import path, { resolve } from "path";
-import fs from 'fs';
-import wkhtmltopdf from "wkhtmltopdf";
+import { generatePdf } from '../../services/constructorPdf'
+import { Request, Response } from 'express'
+import { dynamicColumn } from '../../components/dynamicColumns'
+import { generateDynamicHTML } from '../../components/generateDynamicHTML'
+import path, { resolve } from 'path'
+import fs from 'fs'
+import wkhtmltopdf from 'wkhtmltopdf'
 // import { testee } from "../../components/teste";
 interface DynamicColumn {
-    title: string; // Título da coluna
-    content: string; // Conteúdo da coluna
-  }
+  title: string // Título da coluna
+  content: string // Conteúdo da coluna
+}
 export const generatePdfDynamic = async (req: Request, res: Response) => {
   try {
     // Obter o stream do PDF gerado
-    const pdfStream = await generatePdf();
+    const pdfStream = await generatePdf()
 
     // Configurar a resposta como PDF
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "inline; filename=plano_de_acao.pdf");
+    res.setHeader('Content-Type', 'application/pdf')
+    res.setHeader('Content-Disposition', 'inline; filename=plano_de_acao.pdf')
 
     // Enviar o PDF diretamente ao cliente
-    pdfStream.pipe(res);
+    pdfStream.pipe(res)
   } catch (error) {
-    console.error("Erro ao gerar PDF:", error);
-    res.status(500).send({ error: "Erro ao gerar o PDF" });
+    console.error('Erro ao gerar PDF:', error)
+    res.status(500).send({ error: 'Erro ao gerar o PDF' })
   }
-};
+}
 
 function getFieldValue(dados: any, field: string) {
   const path = field.split('.', 1)
@@ -47,60 +47,59 @@ function getFieldValue(dados: any, field: string) {
 
 const substituiVariaveis = (templateName: string, data: any) => {
   return new Promise<string>((resolve, reject) => {
-  const templatePath = path.resolve(templateName);
+    const templatePath = path.resolve(templateName)
 
-  fs.readFile(templatePath, (err, dataFile) => {
-    if(err) {
-      throw "Ocorreu um erro lendo o arquivo de template"
-    }
+    fs.readFile(templatePath, (err, dataFile) => {
+      if (err) {
+        throw 'Ocorreu um erro lendo o arquivo de template'
+      }
 
-    let templateString = dataFile.toString();
+      let templateString = dataFile.toString()
 
-    const regexp = new RegExp(/({{.+}})/g)
+      const regexp = new RegExp(/({{.+}})/g)
 
-    regexp.test(templateString)
+      regexp.test(templateString)
 
-    const variaveis = templateString.match(regexp)
+      const variaveis = templateString.match(regexp)
 
-    if(variaveis){
-      variaveis.map((variavel) => {
-        const campo : string = variavel.replaceAll(/[{{}}]+/g, "");
+      if (variaveis) {
+        variaveis.map(variavel => {
+          const campo: string = variavel.replaceAll(/[{{}}]+/g, '')
 
-        let valorCampo = getFieldValue(data, campo)
-        templateString = templateString.replaceAll(variavel, valorCampo)
-      })
-    }
+          let valorCampo = getFieldValue(data, campo)
+          templateString = templateString.replaceAll(variavel, valorCampo)
+        })
+      }
 
-
-    return resolve(templateString);
+      return resolve(templateString)
+    })
   })
-})
 }
 
 export const generatePDFExample = async (req: Request, res: Response) => {
   try {
-    const {templateID, data} = req.body as any
+    const { templateID, data } = req.body as any
     const template = templates[templateID]
-    if(template) {
-     const templateFinal = await substituiVariaveis(template, data)
+    if (template) {
+      const templateFinal = await substituiVariaveis(template, data)
       const pdfStream = wkhtmltopdf(templateFinal, {
-        pageSize: "A4",
-        orientation: "Landscape"
-      });
+        pageSize: 'A4',
+        orientation: 'Landscape'
+      })
 
       // Configurar a resposta como PDF
-      res.setHeader("Content-Type", "application/pdf");
-      res.setHeader("Content-Disposition", "inline; filename=plano_de_acao.pdf");
+      res.setHeader('Content-Type', 'application/pdf')
+      res.setHeader('Content-Disposition', 'inline; filename=plano_de_acao.pdf')
       // Enviar o PDF diretamente ao cliente
-      pdfStream.pipe(res);
+      pdfStream.pipe(res)
     }
   } catch (error) {
-    console.error("Erro ao gerar PDF:", error);
-    res.status(500).json({ error: "Erro ao gerar o PDF" });
+    console.error('Erro ao gerar PDF:', error)
+    res.status(500).json({ error: 'Erro ao gerar o PDF' })
   }
-};
+}
 
-const templates : {[key: string] : string} = {
+const templates: { [key: string]: string } = {
   '1': 'teste.html',
   '2': 'teste2.html'
 }

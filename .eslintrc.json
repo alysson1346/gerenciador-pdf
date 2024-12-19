@@ -24,16 +24,9 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "eslint-plugin-import-helpers"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "eslint-plugin-import-helpers"],
   "rules": {
-    "semi": [
-      "error",
-      "never"
-    ],
+    "semi": ["error", "never"],
     "no-unused-vars": [
       "error",
       {
@@ -61,11 +54,7 @@
           "/^@styles/",
           "/^@assets/",
           "/^@types/",
-          [
-            "parent",
-            "sibling",
-            "index"
-          ]
+          ["parent", "sibling", "index"]
         ],
         "alphabetize": {
           "order": "asc",

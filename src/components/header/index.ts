@@ -1,10 +1,10 @@
 interface HeaderProps {
-  origem: string;
-  tipoInspecao: string;
-  logoUrl: string;
-  dataHora: string;
-  paginaAtual: number;
-  totalPaginas: number;
+  origem: string
+  tipoInspecao: string
+  logoUrl: string
+  dataHora: string
+  paginaAtual: number
+  totalPaginas: number
 }
 
 export const getHeader = ({
@@ -13,7 +13,7 @@ export const getHeader = ({
   logoUrl,
   dataHora,
   paginaAtual,
-  totalPaginas,
+  totalPaginas
 }: HeaderProps): string => {
   return `
     <div class="header" style="display: flex; justify-content: space-between; align-items: center;">
@@ -29,5 +29,5 @@ export const getHeader = ({
         <p>${dataHora}</p>
       </div>
     </div>
-  `;
-};
+  `
+}

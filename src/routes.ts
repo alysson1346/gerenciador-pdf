@@ -1,11 +1,14 @@
-import express from "express";
-import { generatePDFExample, generatePdfDynamic } from "./controllers/planoAcaoController";
+import express from 'express'
+import {
+  generatePDFExample,
+  generatePdfDynamic
+} from './controllers/planoAcaoController'
 
-const router = express.Router();
+const router = express.Router()
 router.use(express.json({ limit: '200mb' }))
 
-router.get("/generate-pdf/5", generatePdfDynamic);
+router.get('/generate-pdf/5', generatePdfDynamic)
 
-router.post("/generate-pdf/example", generatePDFExample);
+router.post('/generate-pdf/example', generatePDFExample)
 
-export default router;
+export default router

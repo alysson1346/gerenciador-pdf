@@ -1,8 +1,8 @@
 export function generateDynamicHTML(
-    divisions: Array<{ width?: string; divisions: any }> = [] ,// Atualiza tipo para refletir largura e divisões
-    height?: string
-  ): string {
-    const style = `
+  divisions: Array<{ width?: string; divisions: any }> = [], // Atualiza tipo para refletir largura e divisões
+  height?: string
+): string {
+  const style = `
         <style>
         .box {
             display: flex;
@@ -49,52 +49,56 @@ export function generateDynamicHTML(
         }
         </style>
 
-    `;
+    `
 
-    function renderSubColumns(subDivisions: Array<{ title: string; text?: string; titleSize?: string; textSize?: string } | any>): string {
-        return subDivisions
-          .map((sub) => {
-            if (Array.isArray(sub)) {
-              // Renderiza sub-divisões aninhadas
-              return `
+  function renderSubColumns(
+    subDivisions: Array<
+      | { title: string; text?: string; titleSize?: string; textSize?: string }
+      | any
+    >
+  ): string {
+    return subDivisions
+      .map(sub => {
+        if (Array.isArray(sub)) {
+          // Renderiza sub-divisões aninhadas
+          return `
                 <div class="sub-column-grouped">
                   ${renderSubColumns(sub)}
                 </div>
-              `;
-            } else if (typeof sub === "object" && sub.title) {
-              // Renderiza sub-colunas com `title` e `text`
-              const titleSize = sub.titleSize || "16px";
-              const textSize = sub.textSize || "16px";
+              `
+        } else if (typeof sub === 'object' && sub.title) {
+          // Renderiza sub-colunas com `title` e `text`
+          const titleSize = sub.titleSize || '16px'
+          const textSize = sub.textSize || '16px'
 
-              return `
+          return `
                 <div class="sub-column">
                   <p class="sub-column-title" style="font-size: ${titleSize}">${sub.title || ''}</p>
                   <p class="sub-column-text" style="font-size: ${textSize}">${sub.text || ''}</p>
                 </div>
-              `;
-            }
-          })
-          .join("");
-      }
+              `
+        }
+      })
+      .join('')
+  }
 
+  let columnsHTML = ''
+  for (let i = 0; i < divisions.length; i++) {
+    const division = divisions[i]
+    const divisionHTML = division ? renderSubColumns(division.divisions) : ''
 
-    let columnsHTML = "";
-    for (let i = 0; i < divisions.length; i++) {
-      const division = divisions[i];
-      const divisionHTML = division ? renderSubColumns(division.divisions) : "";
-
-      // Adiciona a largura à coluna se definida
-      columnsHTML += `
+    // Adiciona a largura à coluna se definida
+    columnsHTML += `
         <div class="column" style="width: ${division.width || '100%'}; min-height: ${height || 'auto'};">
           ${divisionHTML}
         </div>
-      `;
-    }
+      `
+  }
 
-    return `
+  return `
       ${style}
       <div class="box">
         ${columnsHTML}
       </div>
-    `;
-  }
+    `
+}

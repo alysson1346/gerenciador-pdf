@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "ES2022"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "ES2022"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -23,38 +18,15 @@
     "isolatedModules": true,
     "baseUrl": "./src/",
     "paths": {
-      "@model/*": [
-        "model/*"
-      ],
-      "@service/*": [
-        "service/*"
-      ],
-      "@controller/*": [
-        "controller/*"
-      ],
-      "@interfaces/*": [
-        "interfaces/*"
-      ],
-      "@utils/*": [
-        "util/*"
-      ],
-      "@schemas/*": [
-        "schemas/*"
-      ],
+      "@model/*": ["model/*"],
+      "@service/*": ["service/*"],
+      "@controller/*": ["controller/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@utils/*": ["util/*"],
+      "@schemas/*": ["schemas/*"]
     }
   },
-  "include": [
-    "src",
-    "**/*.ts",
-    "*.ts",
-    ".eslintrc.json",
-    "additional.d.ts",
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "typeRoots": [
-    "./global.d.ts",
-    "./node_modules/@types"
-  ]
+  "include": ["src", "**/*.ts", "*.ts", ".eslintrc.json", "additional.d.ts"],
+  "exclude": ["node_modules"],
+  "typeRoots": ["./global.d.ts", "./node_modules/@types"]
 }
