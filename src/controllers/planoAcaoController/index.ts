@@ -5,7 +5,6 @@ import { generateDynamicHTML } from '../../components/generateDynamicHTML'
 import path, { resolve } from 'path'
 import fs from 'fs'
 import wkhtmltopdf from 'wkhtmltopdf'
-// import { testee } from "../../components/teste";
 interface DynamicColumn {
   title: string // Título da coluna
   content: string // Conteúdo da coluna
