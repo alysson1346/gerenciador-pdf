@@ -10,7 +10,7 @@ interface DynamicColumn {
     title: string; // Título da coluna
     content: string; // Conteúdo da coluna
   }
-export const generatePdfHandler = async (req: Request, res: Response) => {
+export const generatePdfDynamic = async (req: Request, res: Response) => {
   try {
     // Obter o stream do PDF gerado
     const pdfStream = await generatePdf();
@@ -26,12 +26,8 @@ export const generatePdfHandler = async (req: Request, res: Response) => {
     res.status(500).send({ error: "Erro ao gerar o PDF" });
   }
 };
-<<<<<<< HEAD
-=======
 
 function getFieldValue(dados: any, field: string) {
-  console.log("get field value")
-  console.log(field)
   const path = field.split('.', 1)
   let fieldValue = ''
   if (field.split('.').length > 1) {
@@ -71,10 +67,6 @@ const substituiVariaveis = (templateName: string, data: any) => {
         const campo : string = variavel.replaceAll(/[{{}}]+/g, "");
 
         let valorCampo = getFieldValue(data, campo)
-        console.log("campo nome")
-        console.log(campo)
-        console.log("campo valor")
-        console.log(valorCampo);
         templateString = templateString.replaceAll(variavel, valorCampo)
       })
     }
@@ -112,4 +104,3 @@ const templates : {[key: string] : string} = {
   '1': 'teste.html',
   '2': 'teste2.html'
 }
->>>>>>> 0f156dbda73b22ad44e40f58859a0cb8eb58c587

@@ -1,9 +1,6 @@
 import { Readable } from "stream";
 import wkhtmltopdf from "wkhtmltopdf";
-import { getHeader } from "../../components/header";
-import { getFooter } from "../../components/footer";
 import { generateDynamicHTML } from "../../components/generateDynamicHTML";
-import { text } from "stream/consumers";
 
 interface PdfOptions {
   origem: string;
@@ -18,7 +15,6 @@ export const generatePdf = async (
 //   content: string,
 //   options: PdfOptions
 ): Promise<Readable> => {
-//   const { origem, tipoInspecao, logoUrl, dataHora, paginaAtual, totalPaginas } = options;
 const header = generateDynamicHTML([
     {
       width: '70%', // Largura da primeira coluna
@@ -92,9 +88,6 @@ const header = generateDynamicHTML([
       </body>
     </html>
   `;
-
-  console.log('htmlContent')
-  console.log(htmlContent)
 
   return new Promise((resolve, reject) => {
     try {
