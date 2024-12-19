@@ -9,6 +9,7 @@ interface DynamicColumn {
   title: string // Título da coluna
   content: string // Conteúdo da coluna
 }
+
 export const generatePdfDynamic = async (req: Request, res: Response) => {
   try {
     // Obter o stream do PDF gerado
