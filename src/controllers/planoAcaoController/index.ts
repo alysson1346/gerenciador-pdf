@@ -1,14 +1,8 @@
 import { generatePdf } from '../../services/constructorPdf'
 import { Request, Response } from 'express'
-import { dynamicColumn } from '../../components/dynamicColumns'
-import { generateDynamicHTML } from '../../components/generateDynamicHTML'
-import path, { resolve } from 'path'
+import path from 'path'
 import fs from 'fs'
 import wkhtmltopdf from 'wkhtmltopdf'
-interface DynamicColumn {
-  title: string // Título da coluna
-  content: string // Conteúdo da coluna
-}
 
 export const generatePdfDynamic = async (req: Request, res: Response) => {
   try {
@@ -66,7 +60,7 @@ const substituiVariaveis = (templateName: string, data: any) => {
         variaveis.map(variavel => {
           const campo: string = variavel.replaceAll(/[{{}}]+/g, '')
 
-          let valorCampo = getFieldValue(data, campo)
+          const valorCampo = getFieldValue(data, campo)
           templateString = templateString.replaceAll(variavel, valorCampo)
         })
       }
