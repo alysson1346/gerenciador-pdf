@@ -9,7 +9,7 @@ import {
 } from 'typeorm'
 import { v4 as uuid } from 'uuid'
 
-import { Empresa } from './company.entities'
+import { Empresa } from './empresa.entities'
 
 @Entity('chave_de_acesso')
 export class ChaveAcesso {
@@ -19,10 +19,10 @@ export class ChaveAcesso {
   @Column()
   token_acesso: string
 
-  @Column()
+  @Column({default:false})
   ativo: boolean
 
-  @OneToOne(() => Empresa, { eager: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Empresa, { eager: true })
   @JoinColumn({ name: 'idempresa' })
   idempresa: Empresa
 

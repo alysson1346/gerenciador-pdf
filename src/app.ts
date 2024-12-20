@@ -1,13 +1,13 @@
-import express from 'express'
-import pdfRoutes from './routes'
+import express from 'express';
+import pdfRoutes from './routes';
+import "dotenv/config";
 
-const app = express()
-app.use('/api', pdfRoutes)
 
-app.use(express.json({ limit: '200mb' }))
+export const app = express();
 
-// Inicia o servidor
-const PORT = 3000
-app.listen(PORT, () => {
-  console.log(`Servidor iniciado em http://localhost:${PORT}`)
-})
+
+// Middleware para JSON com limite aumentado
+app.use(express.json({ limit: '200mb' }));
+
+// Rotas
+app.use('/api', pdfRoutes);

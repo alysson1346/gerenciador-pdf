@@ -4,7 +4,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  ManyToOne
+  OneToMany
 } from 'typeorm'
 import { v4 as uuid } from 'uuid'
 
@@ -21,8 +21,8 @@ export class Empresa {
   @Column()
   logo_url: string
 
-  @ManyToOne(() => Layout, { cascade: true })
-  layout: Layout
+  @OneToMany(() => Layout, layout => layout.idempresa) // Relacionamento ajustado
+  layout: Layout[]
 
   @CreateDateColumn()
   dtoperacao_inclusao: Date

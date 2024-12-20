@@ -2,6 +2,8 @@ import { generatePdf } from '../../services/constructorPdf'
 import { Request, Response } from 'express'
 import wkhtmltopdf from 'wkhtmltopdf'
 import { substituiVariaveis } from '../../services/constructorPdf'
+import { AppDataSource } from '../../data-source'
+import { Layout } from '../../entities/layout.entities'
 
 export const generatePdfDynamic = async (req: Request, res: Response) => {
   try {
@@ -24,10 +26,16 @@ export const generatePdfDynamic = async (req: Request, res: Response) => {
 
 export const generatePDF = async (req: Request, res: Response) => {
   try {
-    const { templateID, data } = req.body as any
-    const template = templates[templateID]
-    if (template) {
-      const templateFinal = await substituiVariaveis(template, data)
+    const {idlayout} = req.params
+    const repository = AppDataSource.getRepository(Layout);
+    const { data } = req.body as any
+    const template = await repository.findOneBy({
+      idlayout: idlayout,
+    });
+    console.log('template')
+    console.log(template)
+    if (template?.idlayout) {
+      const templateFinal = await substituiVariaveis(template.layout_html, data)
       const pdfStream = wkhtmltopdf(templateFinal, {
         pageSize: 'A4',
         orientation: 'Landscape'

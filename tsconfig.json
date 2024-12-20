@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "outDir": "./dist",
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext", "ES2022"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,12 +19,13 @@
     "isolatedModules": true,
     "baseUrl": "./src/",
     "paths": {
-      "@model/*": ["model/*"],
+      "@entities/*": ["entities/*"],
       "@service/*": ["service/*"],
       "@controller/*": ["controller/*"],
       "@interfaces/*": ["interfaces/*"],
       "@utils/*": ["util/*"],
-      "@schemas/*": ["schemas/*"]
+      "@schemas/*": ["schemas/*"],
+      "@components/*": ["components/*"]
     }
   },
   "include": ["src", "**/*.ts", "*.ts", ".eslintrc.json", "additional.d.ts"],

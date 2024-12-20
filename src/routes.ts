@@ -9,6 +9,6 @@ router.use(express.json({ limit: '200mb' }))
 
 router.get('/generate-pdf/5', generatePdfDynamic)
 
-router.post('/generate-pdf/example', generatePDF)
+router.post('/generate-pdf/:idlayout', generatePDF)
 
 export default router
