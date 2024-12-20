@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Plano de Ação</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .container-row {
+            display: flex;
+            border: 1px solid black;
+            width: 100%;
+        }
+
+        .left-section {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid black;
+            padding: 10px;
+        }
+
+        .right-section {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid black;
+        }
+
+        .logo-container img {
+            width: 150px;
+        }
+
+        .info-row {
+            display: flex;
+            flex: 1;
+            border-bottom: 1px solid black;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-box {
+            flex: 1;
+            border-right: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .info-box:last-child {
+            border-right: none;
+        }
+        .title{
+            font-weight: 900;
+            margin: 0;
+        }
+        .column{
+            display: flex;
+            border: 1px solid black;
+            width: 100%;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="container-row">
+            <!-- Left Section -->
+            <div class="left-section">
+                <h2>Plano de Ação</h2>
+                <p>{{tcorigem_plano}} - {{cdorigem_plano}}</p> <!-- Como temos muitas opções a validação dos nomes corretos deve ser feito por quem está solicitando a request -->
+                <p>{{txdescricao_origem_plano}}</p><!-- Como temos muitas opções a validação dos nomes corretos deve ser feito por quem está solicitando a request -->
+            </div>
+            <!-- Right Section -->
+            <div class="right-section">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwFnYpgYSCtOkQL0Oe9HNwzniVDbyLDqR2-P6eFZx-vsT_llJE5H1BxvofpJV3UFCLSQ&usqp=CAU" alt="Logo">
+                </div>
+                <!-- Info Rows -->
+                <div class="info-row">
+                    <div class="info-box" style="flex-direction: column;">
+                        <p class="title">Origem</p>
+                        <p>{{tcorigem_plano}}</p>
+                    </div>
+                    <div class="info-box">
+                        <p>PÁG 1/1</p>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-box" style="flex: 1;">
+                        <p>{{dtoperacao_inclusao}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <p class="title" style="padding: 8px;">Localização</p>
+            <p>{{localizacao.txdescricao_localizacao}}</p>
+        </div>
+        <div class="container-row">
+            <div class="column">
+                <p class="title" style="padding: 8px;">Célula</p>
+                <p>{{celula.txnome_celula}}</p>
+            </div>
+            <div class="column">
+                <p class="title" style="padding: 8px;">Gestor da Localização</p>
+                <p>{{gestor_localizacao.pessoa.txnome_pessoa}}</p>
+            </div>
+            <div class="column">
+                <p class="title" style="padding: 8px;">Prazo</p>
+                <p>{{dtinicio_plano_acao}} à {{dtfim_plano_acao}}</p>
+            </div>
+        </div>
+        <div class="container-row">
+            <div class="column">
+                <p class="title" style="padding: 8px;">Responsável</p>
+                <p>RAIMUNDO NONATO TORRES FILHO</p>
+            </div>
+            <div class="column">
+                <p class="title" style="padding: 8px;">Avaliador</p>
+                <p>{{avaliador.pessoa.txnome_pessoa}}</p>
+            </div>
+        </div>
+        <div class="container-row">
+            <div class="column">
+                <p class="title" style="padding: 8px;">Status</p>
+                <p>{{tccdstatus_plano_acao}}</p>
+            </div>
+            <div class="column">
+                <p class="title" style="padding: 8px;">Local de Referência</p>
+                <p>{{txlocal_referencia}}</p>
+            </div>
+        </div>
+        <div class="container-row">
+            <div class="column">
+                <p class="title" style="padding: 8px;">Descrição</p>
+                <p>{{txplano_acao}}</p>
+            </div>
+        </div>
+        <div class="container-row">
+            <div class="column">
+                <p class="title" style="padding: 8px;">Comentário</p>
+                <p>{{txobservacao_plano_acao}}</p>
+            </div>
+        </div>
+        <div class="container-row">
+            <div class="column" style="justify-content: center;">
+                <p class="title" style="padding: 8px;">Avaliação de Eficácia</p>
+            </div>
+        </div>
+        <div class="container-row">
+            <div class="column">
+                <p class="title" style="padding: 8px;">Responsável Avaliação</p>
+                <p>{{responsavel_avaliacao_eficacia.pessoa.txnome_pessoa}}</p>
+            </div>
+            <div class="column" style="justify-content: center;">
+                <p class="title" style="padding: 8px;">Status</p>
+                <p>{{avaliacao_eficacia.tccdstatus_avaliacao_eficacia}}</p>
+            </div>
+        </div>
+        <div class="container-row">
+            <div class="column">
+                <p class="title" style="padding: 8px;">Comentário</p>
+                <p>{{avaliacao_eficacia.txobservacao_avaliacao_eficacia}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
