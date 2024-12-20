@@ -1,16 +1,9 @@
 import { Readable } from 'stream'
 import wkhtmltopdf from 'wkhtmltopdf'
 import { generateDynamicHTML } from '../../components/generateDynamicHTML'
-
-interface PdfOptions {
-  origem: string
-  tipoInspecao: string
-  logoUrl: string
-  dataHora: string
-  paginaAtual: number
-  totalPaginas: number
-}
-
+import path from 'path'
+import fs from 'fs'
+/* EXEMPLO DINAMICO */
 export const generatePdf = async () //   content: string,
 //   options: PdfOptions
 : Promise<Readable> => {
@@ -117,5 +110,54 @@ export const generatePdf = async () //   content: string,
     } catch (error) {
       reject(error)
     }
+  })
+}
+
+export const getFieldValue = (dados: any, field: string) =>{
+  const path = field.split('.', 1)
+  let fieldValue = ''
+  if (field.split('.').length > 1) {
+    path.map((value, index) => {
+      fieldValue = getFieldValue(
+        dados[value] || {},
+        field.replace(value + '.', '')
+      )
+    })
+  } else {
+    if (dados) {
+      fieldValue = dados[field] || ('' as string)
+    }
+  }
+  return fieldValue
+}
+
+export const substituiVariaveis = (templateName: string, data: any) => {
+  return new Promise<string>((resolve, reject) => {
+    const templatePath = path.resolve(templateName)
+
+    fs.readFile(templatePath, (err, dataFile) => {
+      if (err) {
+        throw 'Ocorreu um erro lendo o arquivo de template'
+      }
+
+      let templateString = dataFile.toString()
+
+      const regexp = new RegExp(/{{.+?}}/g)
+
+      regexp.test(templateString)
+
+      const variaveis = templateString.match(regexp)
+
+      if (variaveis) {
+        variaveis.map(variavel => {
+          const campo: string = variavel.replaceAll(/[{{}}]+/g, '')
+
+          const valorCampo = getFieldValue(data, campo)
+          templateString = templateString.replaceAll(variavel, valorCampo)
+        })
+      }
+
+      return resolve(templateString)
+    })
   })
 }
